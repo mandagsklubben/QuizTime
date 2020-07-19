@@ -1,0 +1,401 @@
+@font-face {
+	font-family: Snowstorm;
+	src: url("Snowstorm.otf") format("opentype");
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: local('Roboto Medium'), local('Roboto-Medium'), url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	-webkit-text-stroke: calc(2vw / 19.2) black;
+	color: white;
+	font-family: Snowstorm, sans-serif;
+	overflow: hidden;
+}
+
+video {
+	display: none;
+	position: absolute;
+	opacity: 0;
+	transition: opacity 1s;
+	height: 100vh;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+}
+
+img {
+	opacity: 0;
+}
+
+.absolute {
+	display: block;
+	position: absolute;
+}
+
+div {
+	position: absolute;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+#backgroundvideoloop {
+	z-index: 0;
+	display: block;
+}
+
+.hintcover {
+	opacity: 0;
+	transition: opacity .5s;
+	min-width: calc(100vw - 17vw);
+	min-height: 100vh;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+	object-fit: cover;
+	height: 100vh;
+}
+
+.cover {
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	object-fit: cover;
+	min-width: 100vw;
+	height: 100vh;
+}
+
+.fullscreencenter {
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+}
+
+/*
+for use when placing hints in data.js
+*/
+
+.manuallyplaced {
+	min-width: auto;
+	min-height: auto;
+	top: 0;
+	left: 0;
+	height: auto;
+	object-fit: contain;
+	transform: translate(17vw, 0);
+}
+
+.largehint, .largesize {
+	width: auto;
+	height: auto;
+	min-width: auto;
+	min-height: auto;
+	max-width: 60vw;
+	max-height: 50vw;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+}
+
+.mediumhint, .mediumsize {
+	width: auto;
+	height: auto;
+	min-width: auto;
+	min-height: auto;
+	max-width: 40vw;
+	max-height: 30vw;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+}
+
+.smallhint, .smallsize {
+	width: auto;
+	height: auto;
+	min-width: auto;
+	min-height: auto;
+	max-width: 25vw;
+	max-height: 20vw;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+}
+
+.center {
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, -50%);
+}
+
+.centerHorizontally {
+	left: calc(50vw + 8.5vw);
+	transform: translate(-50%, 0);
+}
+
+/*
+Sidebar style
+*/
+
+#sidebar {
+	transition: transform 1s ease-out;
+	height: 100vh;
+	width: 17vw;
+	opacity: 1;
+	background: url("circuit.jpg");
+	background-size: 100vw;
+	left: -17vw;
+	z-index: 110;
+}
+
+#sidebar img {
+	opacity: 1;
+}
+
+#numberscroll {
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 1;
+	top: 120vh;
+	-webkit-text-stroke: calc(6vw / 19.2) black;
+	font-size: calc(200vw / 19.2);
+	text-align: center;
+	line-height: calc(210vw / 19.2);
+	opacity: 1;
+}
+
+#sidebarheader {
+	font-size: calc(65vw / 19.2);
+	top: 0;
+	padding: calc(20vw / 19.2) 0 calc(5vw / 19.2) 0;
+	width: 100%;
+	height: calc(65vw / 19.2);
+	text-align: center;
+	background: url("circuit.jpg");
+	background-size: 100vw;
+	opacity: 1;
+	z-index: 90;
+}
+
+#sidebartext {
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+#fader {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, .5) 100%);
+	z-index: 99;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	opacity: 1;
+}
+
+/*
+Countdown timer
+*/
+
+#timerblock>div>div {
+	text-align: center;
+	width: calc(83vw / 19.2);
+	;
+	opacity: 1;
+}
+
+#timerblock>div {
+	opacity: 1;
+	position: static;
+}
+
+#timerblock {
+	text-align: left;
+	z-index: 90;
+	top: calc(30vw / 19.2);
+	left: 50vw;
+	transform: translate(-50%);
+}
+
+/*
+Text centered either on viewport or displayarea
+*/
+
+#extratext {
+	text-align: center;
+	z-index: 1;
+	font-variant: petite-caps;
+	font-size: 2.6vw;
+	top: 50vh;
+	left: calc(50vw + 8.5vw);
+	transform: translate(-55%, -45%);
+}
+
+#pausetext {
+	text-align: center;
+	z-index: 90;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+}
+
+#goodbye {
+	z-index: 90;
+	font-size: 5.2vw;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%)
+}
+
+/*
+Other text
+*/
+
+#questiontext {
+	font-size: 6vw;
+	z-index: 100;
+}
+
+#answerextra {
+	z-index: 90;
+	left: 21vw;
+	font-size: 2.6vw;
+	top: 15vw;
+	width: 72vw;
+}
+
+/*
+Wipe transition for text
+*/
+
+.revealer {
+	opacity: 1;
+	transition: width 2s;
+	width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.revealer>div {
+	opacity: 1;
+}
+
+#quiztitlerevealer {
+	z-index: 90;
+	left: 19vw;
+	font-size: 2.87vw;
+	top: 1.5vw;
+}
+
+#questionrevealer {
+	z-index: 90;
+	top: 7vw;
+	left: 20vw;
+	height: 6.25vw;
+}
+
+#answerrevealer {
+	z-index: 90;
+	top: 7vw;
+	left: 20vw;
+	height: 9.4vw;
+	font-size: 7.8vw;
+}
+
+/*
+Sprites
+*/
+
+.sprite {
+	background-repeat: no-repeat;
+	opacity: 1;
+}
+
+#remix {
+	width: calc(223vw / 19.2);
+	right: calc(10vw / 19.2);
+	top: calc(10vw / 19.2);
+	z-index: 91;
+	height: calc(157vw / 19.2);
+	opacity: 0;
+	background-position: calc(-7vw / 19.2) calc(-173vw / 19.2);
+	transition: opacity 2s;
+	background-size: calc((1056 / 223) * (223vw / 19.2));
+}
+
+#mandagsklubbenlogo {
+	width: calc(450vw / 19.2);
+	right: calc(15vw / 19.2);
+	transition: opacity 2s;
+	bottom: calc(15vw / 19.2);
+	z-index: 91;
+	height: calc( 66vw / 19.2);
+	opacity: 0;
+	background-size: calc(450vw / 19.2);
+}
+
+/*
+Debug element styles
+*/
+
+#dbgtext {
+	z-index: 1000;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.7)
+}
+
+menu span {
+	color: #555
+}
+
+button {
+	width: 100%;
+}
+
+menu,
+pre,
+#ff {
+	-webkit-text-stroke: 0 white;
+	color: white;
+}
+
+menu {
+	z-index: 1000;
+	position: absolute;
+	top: 3vw;
+	left: 3vw;
+}
+
+#ff {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+/*
+.revealer{width:100vw}
+#sidebar{
+	left:0;
+}
+#numberscroll{
+	top: -100vh;
+}
+menu{
+	display:none;
+}
+#answerextra,
+#sidebartext,
+#sidebarheader{
+	opacity:1;
+}
+/*uncomment above for layout work*/
