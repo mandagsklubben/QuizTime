@@ -56,12 +56,36 @@ function _Color(c) {
 function recolorQuiz() {
 	var originalImage = spriteimagetemplate;
 	document.body.style.color = _settings.color;
+
+	var newcolor = new _Color(_settings.color);
+	var img = recolorSprite(originalImage,newcolor);
+	document.styleSheets[0].insertRule(`.sprite{ background:url(${img}) }`);
+}
+function replaceLogo(logodata){
+	var em  = document.getElementById("cornerlogo");
+	var newcolor = new _Color(_settings.color);
+
+	var template = new Image();
+	template.onload = function () {
+		var logoimg = new Image();
+		var colorlogosrc = recolorSprite(template,newcolor);
+		logoimg.src = colorlogosrc;
+		logoimg.style.opacity = "1";
+		logoimg.style.position = "absolute"
+		logoimg.style.right = "0";
+		logoimg.style.bottom = "0";
+		em.style.background = `none`
+		em.appendChild(logoimg);
+	 }
+
+	template.src = logodata;
+}
+function recolorSprite(image,newcolor){
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
-	var newcolor = new _Color(_settings.color);
-	canvas.width = originalImage.naturalWidth;
-	canvas.height = originalImage.naturalHeight;
-	context.drawImage(originalImage, 0, 0);
+	canvas.width = image.naturalWidth;
+	canvas.height = image.naturalHeight;
+	context.drawImage(image, 0, 0);
 
 	var pixels = context.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -83,15 +107,14 @@ function recolorQuiz() {
 		pixels.data[(i * 4) + 2] = b
 	}
 	context.putImageData(pixels, 0, 0);
-	var img = canvas.toDataURL("image/png");
-	document.styleSheets[0].insertRule(`.sprite{ background:url(${img}) }`);
+	return canvas.toDataURL("image/png");
 }
 
 function beerIcon(id, scale) {
 	if (!scale) {
 		scale = "1";
 	}
-	let idstr = id ? `"id="${id}" ` : "";
+	let idstr = id ? `id="${id}" ` : "";
 	return `<div ${idstr}class="sprite" style="position:static;
 		width:calc(178vw /19.20 * ${scale});
 		height:calc(174vw /19.20 * ${scale});
@@ -105,7 +128,7 @@ function wineIcon(id, scale) {
 	if (!scale) {
 		scale = "1";
 	}
-	let idstr = id ? `"id="${id}" ` : "";
+	let idstr = id ? `id="${id}" ` : "";
 	return `<div ${idstr}class="sprite" style="position:static;
 		width:calc(100vw /19.20 * ${scale});
 		height:calc(169.5vw /19.20 * ${scale});

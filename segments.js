@@ -171,13 +171,14 @@ function setupQuizArea(tracker, part) {
 			if (part == 3) slideToNum(0, 100);
 		}, 0),
 		new Action(function () {
-			document.getElementById("backgroundvideoloop").style.opacity = 0.5;
+			let opacity = _settings.backgroundopacity || 1;
+			document.getElementById("backgroundvideoloop").style.opacity = opacity;
 		}, 100),
 		new Action(function () { showSidebar() }, 1000),
 		new Action(function () { setText("quiztitlerevealer", `${titleprefix}: ${_settings.quizname}`); }, 1000),
 		new Action(function () { show("sidebartext"); }, 2500),
 		new Action(function () { show("quiztitlerevealer"); }, 3500),
-		new Action(function () { show("mandagsklubbenlogo") }, 1000),
+		new Action(function () { show("cornerlogo") }, 1000),
 		new Action(function () {
 			if (part == 0) slideToNum(1, 2000);
 			if (part == 1) slideToNum(9);
@@ -201,6 +202,20 @@ function getExtraTextFromSettings(counter){
 
 
 function questionSegment(d, tracker) {
+	if(d==null){
+		if(qs){
+			let loadedqstr = data.map(function(d){return d.videofile});
+
+			for( let q of qs ){
+				let m = loadedqstr.filter(function(l){ return (typeof l === "string") && l.startsWith(`questions/${q}/`) });
+
+				if( m.length == 0 ){
+					console.error(`${q} is missing`);
+				}
+			}
+		}
+		throw "data array contains null, most likely culprit is missing files or failed config";
+	}
 	console.log(`generated question segment Q-${d.videofile}: start ${d.getRegularStart()} hint ${d.getRegularHint()} end ${d.getRegularEnd()}`);
 	let deltaHint = (d.getRegularHint() - d.getRegularStart());
 	let deltaEnd = (d.getRegularEnd() - d.getRegularStart());
@@ -271,11 +286,13 @@ function quizBreak(d, tracker) {
 	var breaklength = breakdata.breaklength || 60 * 8;
 	var breaklengthms = breaklength * 1000;
 	// something d.breakaudiocutoff with video duration as fallback is needed here if we ever want to cut qustion audio&video early in a break.
+	console.assert(d.audio.readyState > d.audio.HAVE_NOTHING, "video have not loaded yet");
 	var end = d.breakaudioend || d.audio.duration;
 	var caret = end * 1000 - d.getRegularEnd();
 	var t = new ScreenTimer(breaklength);
 	if (caret > breaklengthms)
 		caret = breaklengthms; // no matter what, the break ending will make the audio fade
+	console.log(`generated break segment B-${d.counter}`);
 	var actions = [
 		new Action(function () {
 			slideToNum(d.counter + 1);
@@ -327,6 +344,7 @@ function quizBreak(d, tracker) {
 
 				var mediaduration = document.getElementById(audiosource).duration;
 				var lengthofplay = (play.duration || mediaduration) * 1000;
+				console.log(`including play in break segment BP-${caret}.${lengthofplay} v:${play.videofile||''} a:${play.audiofile||''}`);
 				if (caret + lengthofplay > breaklengthms)
 					caret = breaklengthms;
 				else
@@ -597,7 +615,7 @@ function cleanup(tracker) {
 		"goodbye",
 		"pausetext",
 		"timerblock",
-		"mandagsklubbenlogo",
+		"cornerlogo",
 		"backgroundvideoloop"
 	];
 	return new Segment([

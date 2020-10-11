@@ -17,7 +17,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: black;
-	-webkit-text-stroke: calc(2vw / 19.2) black;
+	-webkit-text-stroke: calc(2.2vw / 19.2) black;
 	color: white;
 	font-family: Snowstorm, sans-serif;
 	overflow: hidden;
@@ -191,16 +191,6 @@ Sidebar style
 	transition: opacity 1s;
 }
 
-#fader {
-	background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, .5) 100%);
-	z-index: 99;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	bottom: 0;
-	opacity: 1;
-}
-
 /*
 Countdown timer
 */
@@ -280,6 +270,7 @@ Wipe transition for text
 	opacity: 1;
 	transition: width 2s;
 	width: 0;
+	height: 100vh;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -299,14 +290,12 @@ Wipe transition for text
 	z-index: 90;
 	top: 7vw;
 	left: 20vw;
-	height: 6.25vw;
 }
 
 #answerrevealer {
 	z-index: 90;
 	top: 7vw;
 	left: 20vw;
-	height: 9.4vw;
 	font-size: 7.8vw;
 }
 
@@ -331,7 +320,7 @@ Sprites
 	background-size: calc((1056 / 223) * (223vw / 19.2));
 }
 
-#mandagsklubbenlogo {
+#cornerlogo {
 	width: calc(450vw / 19.2);
 	right: calc(15vw / 19.2);
 	transition: opacity 2s;

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<meta data-version="3.004" />
+	<meta data-version="3.011" />
 	<meta charset="utf-8" />
 	<title>Quiz time</title>
 	<script src="helpers.js"></script>
@@ -38,9 +38,8 @@
 	<div id="answerextra">a.k.a. the thing - from the other thing. what if the text is really long, like really really really long?</div>
 	<div id="goodbye">Thank you for playing!</div>
 	<div id="remix" class="absolute sprite"></div>
-	<div id="mandagsklubbenlogo" class="absolute sprite"></div>
+	<div id="cornerlogo" class="absolute sprite"></div>
 	<div id="sidebar">
-		<div id="fader"></div>
 		<div id="sidebarheader"><span id="sidebartext">Question</span></div>
 		<div id="numberscroll"></div>
 	</div>
@@ -135,6 +134,13 @@
 						}
 					}
 			}
+			if( _settings.showlogo !== undefined )
+			{
+				if( !_settings.showlogo )
+					document.getElementById("cornerlogo").style.visibility = "hidden";
+				else
+					replaceLogo(_settings.showlogo);
+			}
 		}
 
 		function addVideo(name, src, style, classes) {
@@ -207,6 +213,19 @@
 		}
 
 		function slideToNum(n, d) {
+			if( n >= 1 && n <= 24 )
+			for(let i = 1; i <= 24; i++) {
+				let lookupid = i == 24 ? "repeaticon" : `sidebar${i}`;
+				let val = i == n ? "brightness(100%)" : "brightness(65%)";
+				let sidebarem = document.getElementById(lookupid);
+				if(sidebarem) {
+					sidebarem.style.filter =  val;
+				}
+				else {
+					console.log(`bad id ${lookupid} at scroll to ${n}`)
+				}
+
+			}
 			var sb = document.getElementById("numberscroll");
 			sb.style.transition = `opacity .5s, top ${d||1000}ms ease-in-out`;
 			if (n) {
@@ -219,13 +238,17 @@
 
 		function fillSidebar() {
 			var str = "";
+			var ix = 1;
 			for (var i = 1; i <= 21; i++) {
-				str += `${i}<br>`
+				str += `<span style="-moz-transition: 1s filter linear;" id="sidebar${ix}">${i}</span><br>`
+				ix++;
 				if (i == 7) {
-					str += beerIcon();
+					str += beerIcon(`sidebar${ix}`);
+					ix++;
 				}
 				if (i == 14) {
-					str += wineIcon();
+					str += wineIcon(`sidebar${ix}`);
+					ix++;
 				}
 				if (i == 21) {
 					str += repeatIcon("repeaticon");
@@ -336,13 +359,37 @@
 			}
 		}
 
+		function ensureMediaLoaded(callback,depth){
+			if( !depth) depth = 1;
+			console.log(`ensure @ ${depth}`);
+			if(depth > 40){
+				throw "media won't load in reasonable time";
+			}
+			let video = document.getElementsByTagName("video");
+			let notready = false;
+			for( let v of video ){
+				if( v.readyState < 4 ){
+					notready = true;
+					console.log(`not ready: ${v.id}: ${v.readyState}`);
+				}
+			}
+			if( notready )
+				setTimeout(function(){ensureMediaLoaded(callback,depth+1)},250);
+			else
+				callback();
+		}
+
 		function runSetup(...segmentnames){
 			let qch = getQuizName();
 			loadScriptFile(qch+"/data.js");
 			loadScriptFile(qch+"/intro.js");
 			setTimeout(function(){
 				initializedata();
-				run(...segmentnames);
+				ensureMediaLoaded(function(){
+					if( _settings.cobrarule !== undefined && !_settings.cobrarule )
+						segmentnames = segmentnames.map(function(s){ return s == "cobra" ? "shortpause" : s; });
+					run(...segmentnames);
+				});
 			},500);
 		}
 
