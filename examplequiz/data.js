@@ -20,6 +20,9 @@ var _settings = {
 		"You know the drill<br>Wait for visual clue",
 	],
 	"backgroundvideo":"examplequiz/bgloop.mp4",
+	// "showlogo":false, // this defaults to true, but if false will not display the måndagsklubben logo in the bottom right corner
+	// "showlogo":"data:image/png;base64,iVBORw0KGgoAAAANS etc..." // or you can set the property to a data uri and it will recolor that image and display that instead.
+	// "cobrarule":false, // this defaults to true, but if false the cobra rule segment will never be played.
 	"quiznumber":"0" // this is just a version number
 };
 
