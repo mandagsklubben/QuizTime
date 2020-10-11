@@ -57,7 +57,7 @@ Search and find hint images for all questions, save them, enter the file names i
 	...
 
 # Step 7
-Create subfolders for your questions and save the json objects as java objects in files named q.js. Look at the existing files for hints and details on which other propeties can go in the data file. Also grab the settings object from the top of that file, and add it as well. Change titles and the text color to something that fits.
+Create subfolders for your questions and save the json objects as javascript objects in files named q.js. Look at the existing files for hints and details on which other propeties can go in the data file. Also grab the settings object from the top of that file, and add it as well. Change titles and the text color to something that fits.
 
 # Step 8
 Make an intro video, with good music. If you have insane luck, you can find something premade on youtube. Most likely you will have to cut together your own 90-ish second long intro.
