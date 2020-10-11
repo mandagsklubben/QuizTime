@@ -26,7 +26,7 @@ Amend the timestamp list with the question/answer combo for each video. One day 
 
 	{
 		"question":"Name of Internet Personality",
-		"answer":"Neil Cicirega",
+		"answer":"Spider-Man",
 		"revealaudio":60
 	},
 	...
@@ -38,7 +38,7 @@ Run youtube 4K video downloader, download the videos from the playlist. You can 
 		"videofile": "questions/example-two/02.mp4",
 		"audiofile": "questions/example-two/02.mp3",
 		"question":"Name of Internet Personality",
-		"answer":"Neil Cicirega",
+		"answer":"Spider-Man",
 		"revealaudio":60
 	},
 	...
@@ -50,7 +50,7 @@ Search and find hint images for all questions, save them, enter the file names i
 		"videofile": "questions/example-two/02.mp4",
 		"audiofile": "questions/example-two/02.mp3",
 		"question":"Name of Internet Personality",
-		"answer":"Neil Cicirega",
+		"answer":"Spider-Man",
 		"hintfile":"questions/example-two/puppetpals.jpg",
 		"revealaudio":60
 	},
