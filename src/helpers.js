@@ -9,6 +9,9 @@ Data.prototype.getAudio = function () {
 Data.prototype.hasSeparateAudio = function () {
 	return this.audiofile != undefined;
 }
+Data.prototype.isHintVideo = function() {
+	return this.hintfile && this.hintfile.endsWith(".mp4");
+}
 
 Data.prototype.validate = function () {
 	console.assert(isFinite(this.getRegularStart()));
@@ -28,6 +31,10 @@ Data.prototype.validate = function () {
 	console.assert(this.getRevealVideo() >= 0);
 	console.assert(this.getRevealAudioStart() >= 0);
 	console.assert(this.getRevealAudioEnd() >= 0);
+
+	if(this.type !== undefined){
+		return
+	}
 
 	console.assert(this.getRegularStart() < this.getRegularHint(), `${this.videofile}: start must be smaller than hint`);
 	console.assert(this.getRegularStart() < this.getRegularEnd(), `${this.videofile}: start must be smaller than end`);

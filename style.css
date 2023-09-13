@@ -1,6 +1,6 @@
 @font-face {
 	font-family: Snowstorm;
-	src: url("Snowstorm.otf") format("opentype");
+	src: url("img/Snowstorm.otf") format("opentype");
 }
 
 @font-face {
@@ -151,12 +151,29 @@ Sidebar style
 	height: 100vh;
 	width: 17vw;
 	opacity: 1;
-	background: url("circuit.jpg");
+	background: url("img/circuit.jpg");
 	background-size: 100vw;
-	left: -17vw;
+	left: -18vw;
 	z-index: 110;
 }
-
+#numberscroll > div {
+	position: unset;
+	opacity: 1;
+}
+#numberscroll > .current {
+	filter: brightness(100%);
+	transform: scale(1.3);
+	opacity:1;
+}
+#numberscroll > .inactive {
+	filter: brightness(50%);
+	opacity:0.5;
+	transform: scale(1);
+}
+#numberscroll > * {
+	-moz-transition: 1s filter linear, 1s transform linear, 1s opacity linear;
+	transition: 1s filter linear, 1s transform linear, 1s opacity linear;
+}
 #sidebar img {
 	opacity: 1;
 }
@@ -180,7 +197,7 @@ Sidebar style
 	width: 100%;
 	height: calc(65vw / 19.2);
 	text-align: center;
-	background: url("circuit.jpg");
+	background: url("img/circuit.jpg");
 	background-size: 100vw;
 	opacity: 1;
 	z-index: 90;
@@ -189,6 +206,7 @@ Sidebar style
 #sidebartext {
 	opacity: 0;
 	transition: opacity 1s;
+	filter:brightness(65%);
 }
 
 /*
@@ -252,6 +270,7 @@ Other text
 #questiontext {
 	font-size: 6vw;
 	z-index: 100;
+	filter: drop-shadow(0.2vw 0.3vw .6vw black);
 }
 
 #answerextra {
@@ -284,6 +303,7 @@ Wipe transition for text
 	left: 19vw;
 	font-size: 2.87vw;
 	top: 1.5vw;
+	filter: brightness(65%);
 }
 
 #questionrevealer {
